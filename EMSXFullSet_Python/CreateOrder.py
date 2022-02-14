@@ -66,53 +66,33 @@ class SessionEventHandler():
                 request = service.createRequest("CreateOrder")
 
                 # The fields below are mandatory
-                request.set("EMSX_TICKER", "IBM US Equity")
-                request.set("EMSX_AMOUNT", 1000)
+                request.set("EMSX_TICKER", "AAPL")
+                request.set("EMSX_AMOUNT", 1)
                 request.set("EMSX_ORDER_TYPE", "MKT")
                 request.set("EMSX_TIF", "DAY")
                 request.set("EMSX_HAND_INSTRUCTION", "ANY")
                 request.set("EMSX_SIDE", "BUY")
 
-            
-                # The fields below are optional
-                #request.set("EMSX_ACCOUNT","TestAccount")
-                #request.set("EMSX_BASKET_NAME", "HedgingBasket")
-                #request.set("EMSX_BROKER", "BMTB")
-                #request.set("EMSX_CFD_FLAG", "1")
-                #request.set("EMSX_CLEARING_ACCOUNT", "ClrAccName")
-                #request.set("EMSX_CLEARING_FIRM", "FirmName")
-                #request.set("EMSX_CUSTOM_NOTE1", "Note1")
-                #request.set("EMSX_CUSTOM_NOTE2", "Note2")
-                #request.set("EMSX_CUSTOM_NOTE3", "Note3")
-                #request.set("EMSX_CUSTOM_NOTE4", "Note4")
-                #request.set("EMSX_CUSTOM_NOTE5", "Note5")
-                #request.set("EMSX_EXCHANGE_DESTINATION", "ExchDest")
-                #request.set("EMSX_EXEC_INSTRUCTION", "Drop down values from EMSX Ticket")
-                #request.set("EMSX_GET_WARNINGS", "0")
-                #request.set("EMSX_GTD_DATE", "20170105")
-                #request.set("EMSX_INVESTOR_ID", "InvID")
-                #request.set("EMSX_LIMIT_PRICE", 123.45)
-                #request.set("EMSX_LOCATE_BROKER", "BMTB")
-                #request.set("EMSX_LOCATE_ID", "SomeID")
-                #request.set("EMSX_LOCATE_REQ", "Y")
-                #request.set("EMSX_NOTES", "Some notes")
-                #request.set("EMSX_ODD_LOT", "0")
-                #request.set("EMSX_ORDER_ORIGIN", "")
-                #request.set("EMSX_ORDER_REF_ID", "UniqueID")
-                #request.set("EMSX_P_A", "P")
-                #request.set("EMSX_RELEASE_TIME", 34341)
-                #request.set("EMSX_REQUEST_SEQ", 1001)
-                #request.set("EMSX_SETTLE_CURRENCY", "USD")
-                #request.set("EMSX_SETTLE_DATE", 20170106)
-                #request.set("EMSX_SETTLE_TYPE", "T+2")
-                #request.set("EMSX_STOP_PRICE", 123.5)
-                            
                 print ("Request: %s" % request.toString())
                     
                 self.requestID = blpapi.CorrelationId()
                 
                 session.sendRequest(request, correlationId=self.requestID )
-                            
+                
+                # The fields below are mandatory
+                request.set("EMSX_TICKER", "IBM")
+                request.set("EMSX_AMOUNT", 1)
+                request.set("EMSX_ORDER_TYPE", "MKT")
+                request.set("EMSX_TIF", "DAY")
+                request.set("EMSX_HAND_INSTRUCTION", "ANY")
+                request.set("EMSX_SIDE", "BUY")
+
+                print ("Request: %s" % request.toString())
+                    
+                self.requestID = blpapi.CorrelationId()
+                
+                session.sendRequest(request, correlationId=self.requestID )
+
             elif msg.messageType() == SERVICE_OPEN_FAILURE:
                 print >> sys.stderr, ("Error: Service failed to open")        
                 

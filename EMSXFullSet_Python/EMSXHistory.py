@@ -8,6 +8,7 @@ SESSION_STARTED         = blpapi.Name("SessionStarted")
 SESSION_STARTUP_FAILURE = blpapi.Name("SessionStartupFailure")
 SERVICE_OPENED          = blpapi.Name("ServiceOpened")
 SERVICE_OPEN_FAILURE    = blpapi.Name("ServiceOpenFailure")
+ERROR_RESPONSE          = blpapi.Name("ErrorResponse")
 ERROR_INFO              = blpapi.Name("ErrorInfo")
 GET_FILLS_RESPONSE      = blpapi.Name("GetFillsResponse")
 
@@ -65,8 +66,8 @@ class SessionEventHandler():
     
                 request = service.createRequest("GetFills")
 
-                request.set("FromDateTime", "2017-11-03T00:00:00.000+00:00")
-                request.set("ToDateTime", "2017-11-03T23:59:00.000+00:00")
+                request.set("FromDateTime", "2021-08-26T00:00:00.000+00:00")
+                request.set("ToDateTime", "2021-08-26T23:59:00.000+00:00")
 
                 scope = request.getElement("Scope")
                 
@@ -77,7 +78,7 @@ class SessionEventHandler():
                 #scope.setElement("Team", "MyTeamName")
                 #scope.setElement("TradingSystem", True) # no need to specify px# this will be picked up based on the login.
                 
-                scope.getElement("Uuids").appendValue(1234) # User's UUID
+                scope.getElement("Uuids").appendValue(30806131) # User's UUID
 
                 #scope.getElement("Uuids").appendValue(12345);
                 #scope.getElement("Uuids").appendValue(123456);
@@ -113,10 +114,11 @@ class SessionEventHandler():
             if msg.correlationIds()[0].value() == self.requestID.value():
                 print ("MESSAGE TYPE: %s" % msg.messageType())
                 
-                if msg.messageType() == ERROR_INFO:
-                    errorCode = msg.getElementAsInteger("ErrorCode")
+                if msg.messageType() == ERROR_RESPONSE:
+                    errorCode = msg.getElementAsString("ErrorCode")
                     errorMessage = msg.getElementAsString("ErrorMsg")
-                    print ("ERROR CODE: %d\tERROR MESSAGE: %s" % (errorCode,errorMessage))
+                    print("ERROR CODE: %s \tERROR MESSAGE: %s" % (errorCode, errorMessage))
+
                 elif msg.messageType() == GET_FILLS_RESPONSE:
 
                     fills = msg.getElement("Fills")
